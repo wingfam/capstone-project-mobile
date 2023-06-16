@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
+import 'package:firebase_database/firebase_database.dart';
 
 import '../../firebase_options.dart';
 import '/services/auth/auth_user.dart';
@@ -16,6 +17,7 @@ class FirebaseAuthProvider implements AuthProvider {
 
   @override
   Future<AuthUser> createUser({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -26,6 +28,23 @@ class FirebaseAuthProvider implements AuthProvider {
       );
       final user = currentUser;
       if (user != null) {
+        final newUser = {
+          "name": name,
+          "email": email,
+          "password": password,
+        };
+
+        // Get a key for a new Post.
+        // final newKey =
+        //     FirebaseDatabase.instance.ref().child('resident').push().key;
+        final newKey = user.id;
+
+        // Write the new user data simultaneously in the resident list
+        final Map<String, Map> create = {};
+        create['/resident/$newKey'] = newUser;
+
+        FirebaseDatabase.instance.ref().update(create);
+
         return user;
       } else {
         throw UserNotLoggedInAuthException();

@@ -65,30 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  cloud_firestore:
-    dependency: "direct main"
-    description:
-      name: cloud_firestore
-      sha256: "095a8c0e67da96610b6f4e6da7ac5853bc86d7664409ab71d7b934469ca99c6f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.0"
-  cloud_firestore_platform_interface:
-    dependency: transitive
-    description:
-      name: cloud_firestore_platform_interface
-      sha256: dd5d1c3ed9a09e620ac59351f20fa635e112101bdc6f90e84b29c5a19fa1bf59
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.15.0"
-  cloud_firestore_web:
-    dependency: transitive
-    description:
-      name: cloud_firestore_web
-      sha256: "51f22dfbe07638075287e171b469ef545bee9f5fa0f8d0ed4aa98aceb0259a5d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.6.0"
   collection:
     dependency: transitive
     description:
@@ -225,11 +201,43 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.0"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      sha256: f3250c0b274669a3d7515e77d82e4feac2f81d5cc55cb103fa066ac33f44b625
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.2.2"
+  firebase_database_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_database_platform_interface
+      sha256: b25c855f3ecd08f05ecd4a2b2534ef60713797d2eb612e34fc6ab626798e8dea
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.5+2"
+  firebase_database_web:
+    dependency: transitive
+    description:
+      name: firebase_database_web
+      sha256: b12d23bb7c395a91038ce95183fe5feb4c0932134bc22e134e5deae5ad55afbd
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.3+2"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_easyloading:
+    dependency: "direct main"
+    description:
+      name: flutter_easyloading
+      sha256: ba21a3c883544e582f9cc455a4a0907556714e1e9cf0eababfcb600da191d17c
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -238,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_spinkit:
+    dependency: transitive
+    description:
+      name: flutter_spinkit
+      sha256: b39c753e909d4796906c5696a14daf33639a76e017136c8d82bf3e620ce5bb8e
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -280,6 +296,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
   io:
     dependency: transitive
     description:
@@ -416,14 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-  persistent_bottom_nav_bar:
+  persistent_bottom_nav_bar_v2:
     dependency: "direct main"
     description:
-      name: persistent_bottom_nav_bar
-      sha256: e2e031e3366fde01511e372a9a19d720a9b252bb456e5c8d77a30d7a4a2ddfb0
+      name: persistent_bottom_nav_bar_v2
+      sha256: "2fbaf1e8b18108d8a303304a306d68bcfb78abfd553295f489a8a315dff479e2"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.2"
+    version: "4.2.8"
   platform:
     dependency: transitive
     description:

@@ -1,26 +1,101 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/routes.dart';
+import '../../services/auth/auth_exceptions.dart';
+import '../../services/auth/auth_service.dart';
 import '../../utilities/color_constant.dart';
+import '../../utilities/dialogs/error_dialog.dart';
+import '../../utilities/dialogs/generic_dialog.dart';
 import '../../utilities/image_constant.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  static bool _showPass = false;
-  final bool _isCommit = false;
+class _RegisterScreenState extends State<RegisterScreen> {
+  late bool _showPass;
+  late bool _isCommit;
+  late final ThemeData _theme;
+  late final TextEditingController _name;
+  late final TextEditingController _email;
+  late final TextEditingController _password1;
+  late final TextEditingController _password2;
+
+  @override
+  void initState() {
+    _showPass = false;
+    _isCommit = false;
+    _theme = ThemeData();
+    _name = TextEditingController();
+    _email = TextEditingController();
+    _password1 = TextEditingController();
+    _password2 = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _email.dispose();
+    _password1.dispose();
+    _password2.dispose();
+    super.dispose();
+  }
+
+  void createUserCredential() async {
+    final name = _name.text;
+    final email = _email.text;
+    final password1 = _password1.text;
+    final password2 = _password2.text;
+
+    try {
+      if (password1 != password2) {
+        showErrorDialog(context, "Two password must match");
+      } else {
+        await AuthService.firebase()
+            .createUser(name: name, email: email, password: password1);
+        // ignore: use_build_context_synchronously
+        showGenericDialog(
+          context: context,
+          title: "Register Successful",
+          content: "Press OK to continue to Login Screen",
+          optionBuilder: () => {
+            "OK": loginRoute,
+          },
+        );
+      }
+    } on WeakPasswordAuthException {
+      showErrorDialog(
+        context,
+        "Weak password",
+      );
+    } on EmailAlreadyInUseAuthException {
+      showErrorDialog(
+        context,
+        "Email is already used",
+      );
+    } on InvalidEmailAuthException {
+      showErrorDialog(
+        context,
+        "This is an invalid email",
+      );
+    } on GenericAuthException {
+      showErrorDialog(
+        context,
+        "Failed to register",
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final ThemeData theme = ThemeData();
-    // var snapshot;
-    return Material(
-      child: Container(
+
+    return Scaffold(
+      body: Container(
         width: size.width,
         height: size.height,
         padding: EdgeInsets.only(
@@ -54,8 +129,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   top: size.height * 0.06,
                 ),
                 child: Theme(
-                  data: theme.copyWith(
-                    colorScheme: theme.colorScheme
+                  data: _theme.copyWith(
+                    colorScheme: _theme.colorScheme
                         .copyWith(primary: ColorConstant.primaryColor),
                   ),
                   child: TextField(
@@ -63,7 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: TextStyle(
                         fontSize: size.width * 0.04, color: Colors.black),
                     cursorColor: ColorConstant.primaryColor,
-                    controller: null,
+                    controller: _name,
                     decoration: InputDecoration(
                       hintText: "Họ và tên",
                       prefixIcon: SizedBox(
@@ -92,23 +167,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   top: size.height * 0.02,
                 ),
                 child: Theme(
-                  data: theme.copyWith(
-                    colorScheme: theme.colorScheme
+                  data: _theme.copyWith(
+                    colorScheme: _theme.colorScheme
                         .copyWith(primary: ColorConstant.primaryColor),
                   ),
                   child: TextField(
                     onChanged: (value) {},
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.emailAddress,
                     style: TextStyle(
                         fontSize: size.width * 0.04, color: Colors.black),
                     cursorColor: ColorConstant.primaryColor,
-                    controller: null,
+                    controller: _email,
                     decoration: InputDecoration(
-                      hintText: "Số điện thoại",
+                      hintText: "Email",
                       prefixIcon: SizedBox(
                         width: size.width * 0.05,
                         child: Icon(
-                          Icons.phone,
+                          Icons.email,
                           size: size.width * 0.05,
                         ),
                       ),
@@ -134,8 +209,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: AlignmentDirectional.centerEnd,
                   children: [
                     Theme(
-                      data: theme.copyWith(
-                        colorScheme: theme.colorScheme
+                      data: _theme.copyWith(
+                        colorScheme: _theme.colorScheme
                             .copyWith(primary: ColorConstant.primaryColor),
                       ),
                       child: TextField(
@@ -146,7 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         obscureText: !_showPass,
                         cursorColor: ColorConstant.primaryColor,
-                        controller: null,
+                        controller: _password1,
                         decoration: InputDecoration(
                           hintText: "Mật Khẩu",
                           prefixIcon: SizedBox(
@@ -172,8 +247,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: size.height * 0.02),
-                      child: GestureDetector(
-                        onTap: () {
+                      child: TextButton(
+                        onPressed: () {
                           setState(() {
                             onToggleShowPass();
                           });
@@ -200,8 +275,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: AlignmentDirectional.centerEnd,
                   children: [
                     Theme(
-                      data: theme.copyWith(
-                        colorScheme: theme.colorScheme
+                      data: _theme.copyWith(
+                        colorScheme: _theme.colorScheme
                             .copyWith(primary: ColorConstant.primaryColor),
                       ),
                       child: TextField(
@@ -212,7 +287,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         obscureText: !_showPass,
                         cursorColor: ColorConstant.primaryColor,
-                        controller: null,
+                        controller: _password2,
                         decoration: InputDecoration(
                           hintText: "Nhập lại mật khẩu",
                           prefixIcon: SizedBox(
@@ -238,8 +313,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: size.height * 0.02),
-                      child: GestureDetector(
-                        onTap: () {
+                      child: TextButton(
+                        onPressed: () {
                           setState(() {
                             onToggleShowPass();
                           });
@@ -281,8 +356,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: size.width * 0.03,
                       ),
-                      GestureDetector(
-                        onTap: () {},
+                      TextButton(
+                        onPressed: () {},
                         child: Text(
                           "Điều khoản & Cam kết",
                           style: TextStyle(
@@ -305,7 +380,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: double.infinity,
                   height: size.height * 0.055,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      createUserCredential();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorConstant.primaryColor,
                       textStyle: TextStyle(
@@ -374,9 +451,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              loginRoute,
+                            );
                           },
                           child: Text(
                             'Đăng nhập',

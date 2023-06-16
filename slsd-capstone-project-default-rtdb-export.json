@@ -1,0 +1,109 @@
+{
+  "Resident": {
+    "-NXFHIctIV9FHei1d4sk": {
+      "Email": "redragon12371@gmail.com",
+      "Fullname": "Nguyễn Lê Thăng Long",
+      "Id": "-NXFHIctIV9FHei1d4sk",
+      "IsAvaiable": true,
+      "PasswordHash": "Longlol123",
+      "Phone": "0362470321",
+      "ResidentId": "2M2DPP6B"
+    }
+  },
+  "access_warning": {
+    "-NWkoXBhupp-m4ofaQZ1": {
+      "create_date": "2023-06-12 20:46:34.779364",
+      "locker_id": "-NWkk4UGgtPvxG30SG8h",
+      "message": "Thông báo, có đột nhập ở tủ số 01"
+    }
+  },
+  "admin": {
+    "password": 123456,
+    "username": "admin"
+  },
+  "booking_code": {
+    "-NWkmt2DVbbn2YmoINlR": {
+      "bcode_create_datetime": "2023-05-29 20:46:34",
+      "bcode_name": "246801",
+      "bcode_valid_datetime": "2023-05-29 20:56:34",
+      "booking_id": "-NWkkzHmiVtRy4n4-MsR"
+    },
+    "-NWkmt3HaLps3sA_611_": {
+      "bcode_create_datetime": "2023-06-02 08:46:34",
+      "bcode_name": "452136",
+      "bcode_valid_datetime": "2023-06-30 20:56:34",
+      "booking_id": "-NWkkzIx0GY1a22xEHdL"
+    }
+  },
+  "booking_history": {
+    "-NWkmt6YxGNwww8eT0DU": {
+      "booking_code": "246801",
+      "booking_id": "-NWkkzHmiVtRy4n4-MsR",
+      "locker_name": "01",
+      "unlock_code": "221468"
+    },
+    "-NX8z1CsDsrHGJxa0JVd": {
+      "booking_code": "452136",
+      "booking_id": "-NWkkzIx0GY1a22xEHdL",
+      "locker_name": "02",
+      "unlock_code": "662816"
+    }
+  },
+  "booking_order": {
+    "-NWkkzHmiVtRy4n4-MsR": {
+      "booking_datetime": "2023-05-29 20:10:54",
+      "booking_status": false,
+      "booking_valid_datetime": "2023-06-01 20:10:54",
+      "locker_id": "-NWkk4UGgtPvxG30SG8h",
+      "resident_id": "-NWkiAkeN0hACHBhfO5s"
+    },
+    "-NWkkzIx0GY1a22xEHdL": {
+      "booking_datetime": "2023-06-02 20:46:34",
+      "booking_status": false,
+      "booking_valid_datetime": "2023-06-05 20:46:34",
+      "locker_id": "-NWkk4VOSwvOFGOUlSYy",
+      "resident_id": "-NWkiAlpBEYT6tA6VGsZ"
+    }
+  },
+  "locker": {
+    "-NWkk4UGgtPvxG30SG8h": {
+      "locker_name": "01",
+      "locker_status": true
+    },
+    "-NWkk4VOSwvOFGOUlSYy": {
+      "locker_name": "02",
+      "locker_status": true
+    }
+  },
+  "notification": {
+    "-NXFHIctIV9FHei1d4sk": {
+      "resident_id": "-NWkiAkeN0hACHBhfO5s",
+      "message": "Bạn có đơn hàng ở tủ số 01",
+      "createDate": "2023-05-29 20:10:54"
+    }
+  },
+  "resident": {
+    "-NX_ndtb66MLHaeY9wr6": {
+      "email": "minhnhnse130517@fpt.edu.vn",
+      "name": "minh",
+      "password": "123456789"
+    },
+    "-NX_uauoLI-ay80PHzSP": {
+      "email": "supmangcua970@gmail.com",
+      "name": "Nguyễn Huỳnh Nhật Minh",
+      "password": "123456789"
+    }
+  },
+  "unlock_code": {
+    "-NWkmt4Mc20nVzcY-0lz": {
+      "booking_id": "-NWkkzHmiVtRy4n4-MsR",
+      "ucode_create_datetime": "2023-05-29 20:46:34",
+      "ucode_name": "221468"
+    },
+    "-NWkmt5RpM29y0bEt4hA": {
+      "booking_id": "-NWkkzIx0GY1a22xEHdL",
+      "ucode_create_datetime": "2023-05-29 20:46:34",
+      "ucode_name": "152672"
+    }
+  }
+}

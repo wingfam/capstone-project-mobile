@@ -37,12 +37,14 @@ dependencies:
   cupertino_icons: ^1.0.5
   firebase_core: ^2.13.1
   firebase_auth: ^4.6.2
-  cloud_firestore: ^4.8.0
+  firebase_database: ^10.2.2
   firebase_analytics: ^10.4.2
   sqflite: ^2.2.6
   path_provider: ^2.0.14
   path: ^1.8.2
-  persistent_bottom_nav_bar: ^5.0.2
+  persistent_bottom_nav_bar_v2: ^4.2.8
+  flutter_easyloading: ^3.0.5
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -68,9 +70,17 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/logo_app.png
+    - assets/images/bg.jpg
+    - assets/images/ggicon2.png
+    - assets/images/ic_home.png
+    - assets/images/ic_search.png
+    - assets/images/ic_history.png
+    - assets/images/ic_profile.png
+    - assets/images/ic_add.png
+    - assets/images/img_create_booking.png
+    - assets/images/img_view_history.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

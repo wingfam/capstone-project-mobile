@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'views/firebase_options.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'views/home_screen/homescreen.dart';
-import 'views/information_screen/change_password.dart';
+import '/firebase_options.dart';
+import 'loading_config.dart';
+import 'services/auth/auth_service.dart';
+import 'constants/routes.dart';
+import 'views/home_screen/home_screen.dart';
 import 'views/information_screen/edit_info.dart';
 import 'views/login_screen/login_screen.dart';
+import 'views/notification_screen/notification_screen.dart';
 import 'views/register_screen/register_screen.dart';
+import 'views/main_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +19,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  configLoading();
 }
 
 class MyApp extends StatefulWidget {
@@ -24,19 +30,47 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/",
+      home: const MainPage(),
+      builder: EasyLoading.init(),
       routes: <String, WidgetBuilder>{
-        // '/': (context) => const Change_Password(),
-        '/': (context) => const LoginScreen(),
-        '/signUpScreen': (context) => const SignUpScreen(),
-        '/homeScreen': (context) => const HomeScreen(),
-        // '/taskHistory': (context) => const History(),
-        '/editProfile': (context) => const EditInfo(),
-        '/changePassword': (context) => const ChangePassword(),
+        loginRoute: (context) => const LoginScreen(),
+        registerRoute: (context) => const RegisterScreen(),
+        mainViewRoute: (context) => const MainView(),
+        homeRoute: (context) => const HomeScreen(),
+        editProfileRoute: (context) => const EditInfo(),
+        notificationRoute: (context) => const Notifications(),
+      },
+    );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: AuthService.firebase().initialize(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final user = AuthService.firebase().currentUser;
+            if (user?.email != null) {
+              return const MainView();
+            } else {
+              return const LoginScreen();
+            }
+          default:
+            return const CircularProgressIndicator();
+        }
       },
     );
   }

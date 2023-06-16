@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +49,24 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDhxltRG8ojvVdhmXSo_-8EsH1c415ZnxY',
-    appId: '1:999650887394:web:452cff36a4fc96286b80bb',
-    messagingSenderId: '999650887394',
-    projectId: 'slsd-firebase-test',
-    authDomain: 'slsd-firebase-test.firebaseapp.com',
-    storageBucket: 'slsd-firebase-test.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDTMjRb9oSfkemSNv60gsbynwSk_l1uJag',
-    appId: '1:999650887394:android:c51d4b26684ed0bf6b80bb',
-    messagingSenderId: '999650887394',
-    projectId: 'slsd-firebase-test',
-    storageBucket: 'slsd-firebase-test.appspot.com',
+    apiKey: 'AIzaSyB4awk7yJdq0W8UBevOgPcmJQ6tP8Lol3o',
+    appId: '1:523851281455:android:e02ebccf3a2c175b3f82da',
+    messagingSenderId: '523851281455',
+    projectId: 'slsd-capstone-project',
+    databaseURL: 'https://slsd-capstone-project-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'slsd-capstone-project.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCC3o39jX_qdcWF1sbpkXj5C6G646CPwAA',
-    appId: '1:999650887394:ios:1d957f64d09641c86b80bb',
-    messagingSenderId: '999650887394',
-    projectId: 'slsd-firebase-test',
-    storageBucket: 'slsd-firebase-test.appspot.com',
-    iosClientId: '999650887394-pvuk1t3jd7p5vui26cc9ckd2l1djsg6l.apps.googleusercontent.com',
-    iosBundleId: 'com.example.testProject',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCC3o39jX_qdcWF1sbpkXj5C6G646CPwAA',
-    appId: '1:999650887394:ios:1d957f64d09641c86b80bb',
-    messagingSenderId: '999650887394',
-    projectId: 'slsd-firebase-test',
-    storageBucket: 'slsd-firebase-test.appspot.com',
-    iosClientId: '999650887394-pvuk1t3jd7p5vui26cc9ckd2l1djsg6l.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCFvsBy0jehao1p7rUuZLAUcrfhqaU4oUc',
+    appId: '1:523851281455:ios:92207592ed5cd6053f82da',
+    messagingSenderId: '523851281455',
+    projectId: 'slsd-capstone-project',
+    databaseURL: 'https://slsd-capstone-project-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'slsd-capstone-project.appspot.com',
+    androidClientId: '523851281455-qv1r7bi17befchfic32qta4fh3vuo41p.apps.googleusercontent.com',
+    iosClientId: '523851281455-h8q4v4nnso00nqf1p8qakd38pa2qr9oc.apps.googleusercontent.com',
     iosBundleId: 'com.example.testProject',
   );
 }
