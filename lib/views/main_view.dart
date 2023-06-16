@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../constants/routes.dart';
-import 'booking_screen/booking_screen.dart';
-import 'history_screen/history_screen.dart';
-import 'home_screen/home_screen.dart';
+import 'booking_screen/booking_order.dart';
+import 'history_screen/history.dart';
+import 'home_screen/home.dart';
 import 'information_screen/edit_info.dart';
-import 'information_screen/screen1.dart';
-import 'information_screen/screen2.dart';
-import 'notification_screen/notification_screen.dart';
+import 'information_screen/profile.dart';
+import 'information_screen/change_password.dart';
+import 'notification_screen/notification.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -32,8 +32,8 @@ class _MainViewState extends State<MainView> {
     return [
       const HomeScreen(),
       const Notifications(),
-      const BookingHistory(),
-      const EditInfo(),
+      const History(),
+      const Info(),
     ];
   }
 
@@ -48,7 +48,7 @@ class _MainViewState extends State<MainView> {
           initialRoute: homeRoute,
           routes: {
             bookingRoute: (context) => const BookingScreen(),
-            historyRoute: (context) => const BookingHistory(),
+            historyRoute: (context) => const History(),
           },
         ),
       ),
@@ -70,10 +70,10 @@ class _MainViewState extends State<MainView> {
         activeColorPrimary: Colors.deepOrangeAccent,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
-          initialRoute: editProfileRoute,
+          initialRoute: profileRoute,
           routes: {
-            screen1Route: (context) => const Screen1(),
-            screen2Route: (context) => const Screen2(),
+            editInfoRoute: (context) => const EditInfo(),
+            changePasswordRoute: (context) => const ChangePassword(),
           },
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/routes.dart';
 import '../../utilities/color_constant.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -14,15 +15,13 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chỉnh sửa thông tin'),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
+        title: Text(
+          "Đổi mật khẩu",
+          style: TextStyle(
             color: Colors.white,
+            fontSize: MediaQuery.of(context).size.height * 0.03,
+            fontWeight: FontWeight.bold,
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/homeScreen');
-          },
         ),
       ),
       body: Container(
@@ -39,39 +38,59 @@ class _ChangePasswordState extends State<ChangePassword> {
               buildTextField("Xác nhận lại mật khẩu", "***************", true),
               const SizedBox(height: 30),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // OutlinedButton(
-                  //   onPressed: () {},
-                  //   child: Text("THOÁT",
-                  //     style: TextStyle(
-                  //         fontSize: 15,
-                  //         letterSpacing: 2,
-                  //         color: Colors.black
-                  //     ),
-                  //   ),
-                  //   style: OutlinedButton.styleFrom(
-                  //       padding: EdgeInsets.symmetric(horizontal: 50),
-                  //       shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(20))
-                  //   ),
-                  // ),
-                  ElevatedButton(onPressed: () {},
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorConstant.primaryColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 170),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                        fixedSize: const Size.fromWidth(100),
+                        backgroundColor: ColorConstant.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
-                      child: const Text("LƯU",
+                      child: const Text(
+                        "LƯU",
                         style: TextStyle(
                           fontSize: 15,
                           letterSpacing: 3,
                           color: Colors.white,
                         ),
-                      )
-                  )],
-              )
-
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).popUntil((route) {
+                          return route.settings.name == profileRoute;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size.fromWidth(100),
+                        backgroundColor: ColorConstant.fromHex("#808080"),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text(
+                        "THOÁT",
+                        style: TextStyle(
+                          fontSize: 15,
+                          letterSpacing: 3,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
         ),
@@ -86,24 +105,25 @@ class _ChangePasswordState extends State<ChangePassword> {
       child: TextField(
         obscureText: isPasswordTextField ? true : false,
         decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {},
-                  )
-                : null,
-            contentPadding: const EdgeInsets.only(bottom: 5),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            hintStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey,
-            )),
+          suffixIcon: isPasswordTextField
+              ? IconButton(
+                  icon: const Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {},
+                )
+              : null,
+          contentPadding: const EdgeInsets.only(bottom: 5),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: placeholder,
+          hintStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey,
+          ),
+        ),
       ),
     );
   }

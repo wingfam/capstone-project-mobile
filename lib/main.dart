@@ -6,11 +6,12 @@ import '/firebase_options.dart';
 import 'loading_config.dart';
 import 'services/auth/auth_service.dart';
 import 'constants/routes.dart';
-import 'views/home_screen/home_screen.dart';
-import 'views/information_screen/edit_info.dart';
-import 'views/login_screen/login_screen.dart';
-import 'views/notification_screen/notification_screen.dart';
-import 'views/register_screen/register_screen.dart';
+import 'views/history_screen/history.dart';
+import 'views/home_screen/home.dart';
+import 'views/information_screen/profile.dart';
+import 'views/login_screen/login.dart';
+import 'views/notification_screen/notification.dart';
+import 'views/register_screen/register.dart';
 import 'views/main_view.dart';
 
 void main() async {
@@ -40,8 +41,9 @@ class _MyAppState extends State<MyApp> {
         registerRoute: (context) => const RegisterScreen(),
         mainViewRoute: (context) => const MainView(),
         homeRoute: (context) => const HomeScreen(),
-        editProfileRoute: (context) => const EditInfo(),
         notificationRoute: (context) => const Notifications(),
+        historyRoute: (context) => const History(),
+        profileRoute: (context) => const Info(),
       },
     );
   }
