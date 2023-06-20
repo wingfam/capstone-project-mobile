@@ -31,7 +31,7 @@ class _MainViewState extends State<MainView> {
   List<Widget> _buildScreens() {
     return [
       const HomeScreen(),
-      const Notifications(),
+      const Noti(),
       const History(),
       const Info(),
     ];

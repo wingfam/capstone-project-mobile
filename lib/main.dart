@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         registerRoute: (context) => const RegisterScreen(),
         mainViewRoute: (context) => const MainView(),
         homeRoute: (context) => const HomeScreen(),
-        notificationRoute: (context) => const Notifications(),
+        notificationRoute: (context) => const Noti(),
         historyRoute: (context) => const History(),
         profileRoute: (context) => const Info(),
       },

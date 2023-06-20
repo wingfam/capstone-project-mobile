@@ -4,6 +4,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import '../../constants/routes.dart';
 import '../../utilities/image_constant.dart';
 import '../booking_screen/booking_order.dart';
+import '../history_screen/history.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -108,27 +109,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: size.width * 0.5,
-                      height: size.width * 0.4,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(ImageConstant.imgViewHistory),
-                          fit: BoxFit.fill,
+                child: InkWell(
+                  onTap: () {
+                    if (context.mounted) {
+                      pushNewScreenWithRouteSettings(
+                        context,
+                        settings: const RouteSettings(name: homeRoute),
+                        screen: const History(),
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        width: size.width * 0.5,
+                        height: size.width * 0.4,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(ImageConstant.imgViewHistory),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      "Xem lịch sử",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: size.height * 0.03,
-                      ),
-                    )
-                  ],
+                      Text(
+                        "Xem lịch sử",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: size.height * 0.03,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

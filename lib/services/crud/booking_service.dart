@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/models.dart';
@@ -14,7 +15,7 @@ class BookingServices {
   BookingCode _bookingCode = BookingCode();
   BookingHistory _history = BookingHistory();
 
-  Future<void> createBooking(
+  Future<String?> createBooking(
     String validDate,
     String? lockerId,
     String currentTime,
@@ -36,12 +37,15 @@ class BookingServices {
     create['/booking_order/$newKey'] = _bookingOrder.toJson();
     // Update to firebase
     await _firebase.update(create);
+    // Return booking id
+    return newKey;
   }
 
   Future<String> createBookingCode(
+    String? bookingId,
+    String? bcodeName,
     String currentTime,
   ) async {
-    final bcodeName = get6DigitsCode().toString();
     final bcodeCreateDatetime = currentTime;
     final bcodeValidDatetime = _formattedDate.format(
       DateTime.now().add(
@@ -105,11 +109,67 @@ class BookingServices {
     return locker;
   }
 
+  Future<String> getUnlockCodeIdByBookingId(String? bookingId) async {
+    String unlockCodeId = "";
+    await _firebase
+        .child("unlock_code")
+        .orderByChild("booking_id")
+        .equalTo(bookingId)
+        .get()
+        .then((snapshot) {
+      if (snapshot.exists) {
+        Map<dynamic, dynamic> values = snapshot.value as Map;
+        values.forEach((key, value) {
+          unlockCodeId = key;
+        });
+      } else {
+        if (kDebugMode) {
+          print('No data available.');
+        }
+      }
+    });
+    return unlockCodeId;
+  }
+
   Future<void> updateLockerStatus(String? foundLockerId) async {
     final snapshot = _firebase.child("locker/$foundLockerId");
     final newStatus = {
       "locker_status": true,
     };
-    snapshot.update(newStatus);
+    await snapshot.update(newStatus);
+  }
+
+  Future<void> updateBCodeHistory(
+    String bcode,
+    String bookingCodeId,
+  ) async {
+    final snapshot = _firebase.child("booking_history/$bookingCodeId");
+    final newCodes = {
+      "booking_code": bcode,
+    };
+    await snapshot.update(newCodes);
+  }
+
+  Future<void> updateUCodeHistory(
+    String ucode,
+    String bookingCodeId,
+  ) async {
+    final snapshot = _firebase.child("booking_history/$bookingCodeId");
+    final newCode = {
+      "unlock_code": ucode,
+    };
+    await snapshot.update(newCode);
+  }
+
+  Future<void> updateUnlockCode(
+    String? newUcode,
+    String? bookingId,
+  ) async {
+    final unlockCodeId = await getUnlockCodeIdByBookingId(bookingId);
+    final snapshot = _firebase.child("unlock_code/$unlockCodeId");
+    final newCode = {
+      "ucode_name": newUcode,
+    };
+    await snapshot.update(newCode);
   }
 }

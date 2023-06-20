@@ -10,8 +10,6 @@ import '../login_screen/login.dart';
 import 'change_password.dart';
 import 'edit_info.dart';
 
-enum MenuAction { logout }
-
 class Info extends StatefulWidget {
   const Info({super.key});
 

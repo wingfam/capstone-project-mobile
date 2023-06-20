@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../services/crud/booking_service.dart';
 import '../../utilities/dialogs/generic_dialog.dart';
 import '../../utilities/image_constant.dart';
+import '../../utilities/util_functions.dart';
 
 const List<String> validDatetimeList = <String>[
   '1 tiếng',
@@ -35,7 +36,7 @@ class _BookingScreenState extends State<BookingScreen> {
     super.initState();
     _bookingServices = BookingServices();
     _message =
-          "Sau khi tạo booking, mã booking sẽ có hiệu lực trong 10 phút.Khi hết 10 phút, bạn sẽ phải tạo booking khác để sử dụng.;";
+        "Sau khi tạo booking, mã booking sẽ có hiệu lực trong 10 phút.Khi hết 10 phút, bạn sẽ phải tạo booking khác để sử dụng.;";
     _formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss');
     _dropdownValue = validDatetimeList.first;
     _isLoading = ValueNotifier(false);
@@ -93,14 +94,17 @@ class _BookingScreenState extends State<BookingScreen> {
     } else {
       final currentTime = _formattedDate.format(DateTime.now());
       final validate = convertDropDownValue(_dropdownValue);
-      await _bookingServices.createBooking(
+      final bookingId = await _bookingServices.createBooking(
         validate,
         foundLocker.id,
         currentTime,
       );
 
+      final bcodeName = get6DigitsCode().toString();
       final newCode = await _bookingServices.createBookingCode(
+        bookingId,
         currentTime,
+        bcodeName,
       );
 
       await _bookingServices.createHistory(

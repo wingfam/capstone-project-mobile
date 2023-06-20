@@ -1,19 +1,18 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-
 import 'package:flutter/material.dart';
 
-import '../../models/notificationDTO.dart';
+import '../../models/models.dart' show Notifications;
 import '../../services/crud/notification_dao.dart';
 import '../../utilities/color_constant.dart';
 
-class Notifications extends StatefulWidget {
-  const Notifications({Key? key}) : super(key: key);
+class Noti extends StatefulWidget {
+  const Noti({Key? key}) : super(key: key);
 
   @override
-  State<Notifications> createState() => _NotificationsState();
+  State<Noti> createState() => _NotiState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _NotiState extends State<Noti> {
   final notification = NotificationDAO();
 
   @override
@@ -43,7 +42,7 @@ class _NotificationsState extends State<Notifications> {
               query: notification.getInfoQuery(),
               itemBuilder: (context, snapshot, animation, index) {
                 final json = snapshot.value;
-                final data = notificationDTO.fromJson(json);
+                final data = Notifications.fromJson(json);
                 return Card(
                   child: ListTile(
                     leading: Container(

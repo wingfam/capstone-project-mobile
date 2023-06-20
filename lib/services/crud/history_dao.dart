@@ -4,8 +4,12 @@ class HistoryDAO {
   DatabaseReference taskHistory =
       FirebaseDatabase.instance.ref().child('/booking_history');
 
-  void saveInfo(
-      String bookingCode, String lockerName, String unlockCode, String date) {
+  Future<void> saveInfo(
+    String bookingCode,
+    String lockerName,
+    String unlockCode,
+    String date,
+  ) async {
     final Map<dynamic, dynamic> body = <dynamic, dynamic>{};
     body.clear();
     body['booking_code'] = bookingCode;
@@ -14,7 +18,7 @@ class HistoryDAO {
     body['date'] = date;
 
     //TaskHistory history = TaskHistory(dateTime: datetime, task: task, productLocation: location);
-    taskHistory.push().set(body);
+    await taskHistory.push().set(body);
   }
 
   Query getInfoQuery() {

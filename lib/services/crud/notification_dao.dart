@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 class NotificationDAO {
   DatabaseReference notificationScreen =
-      FirebaseDatabase.instance.ref().child('/Notification');
+      FirebaseDatabase.instance.ref().child('/notification');
 
   void saveInfo(String message) {
     final Map<dynamic, dynamic> body = <dynamic, dynamic>{};

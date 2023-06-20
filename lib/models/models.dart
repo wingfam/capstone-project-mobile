@@ -13,7 +13,7 @@ class Resident {
     );
   }
 
-  Resident.fromJson(Map<String, dynamic> json) {
+  Resident.fromJson(dynamic json) {
     email = json['email'];
     name = json['name'];
     password = json['password'];
@@ -42,7 +42,7 @@ class Locker {
     );
   }
 
-  Locker.fromJson(Map<String, dynamic> json) {
+  Locker.fromJson(dynamic json) {
     lockerName = json['locker_name'];
     lockerStatus = json['locker_status'];
   }
@@ -81,7 +81,7 @@ class BookingOrder {
     );
   }
 
-  BookingOrder.fromJson(Map<String, dynamic> json) {
+  BookingOrder.fromJson(dynamic json) {
     bookingDatetime = json['booking_datetime'];
     bookingStatus = json['booking_status'];
     bookingValidDatetime = json['booking_valid_datetime'];
@@ -115,7 +115,7 @@ class UnlockCode {
     );
   }
 
-  UnlockCode.fromJson(Map<String, dynamic> json) {
+  UnlockCode.fromJson(dynamic json) {
     bookingId = json['booking_id'];
     ucodeCreateDatetime = json['ucode_create_datetime'];
     ucodeName = json['ucode_name'];
@@ -136,6 +136,7 @@ class BookingHistory {
   String? bookingId;
   String? lockerName;
   String? unlockCode;
+  String? date;
 
   BookingHistory({
     this.residentId,
@@ -143,23 +144,27 @@ class BookingHistory {
     this.bookingId,
     this.lockerName,
     this.unlockCode,
+    this.date,
   });
 
   static BookingHistory fromMap(Map value) {
     return BookingHistory(
-        residentId: value['resident_id'],
-        bookingCode: value['booking_code'],
-        bookingId: value['booking_id'],
-        lockerName: value['locker_name'],
-        unlockCode: value['unlock_code']);
+      residentId: value['resident_id'],
+      bookingCode: value['booking_code'],
+      bookingId: value['booking_id'],
+      lockerName: value['locker_name'],
+      unlockCode: value['unlock_code'],
+      date: value['date'],
+    );
   }
 
-  BookingHistory.fromJson(Map<String, dynamic> json) {
+  BookingHistory.fromJson(dynamic json) {
     residentId = json['resident_id'];
     bookingCode = json['booking_code'];
     bookingId = json['booking_id'];
     lockerName = json['locker_name'];
     unlockCode = json['unlock_code'];
+    date = json['date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -169,6 +174,7 @@ class BookingHistory {
     data['booking_id'] = bookingId;
     data['locker_name'] = lockerName;
     data['unlock_code'] = unlockCode;
+    data['date'] = date;
     return data;
   }
 }
@@ -187,13 +193,14 @@ class BookingCode {
 
   static BookingCode fromMap(Map value) {
     return BookingCode(
-        bcodeCreateDatetime: value['bcode_create_datetime'],
-        bcodeName: value['bcode_name'],
-        bcodeValidDatetime: value['bcode_valid_datetime'],
-        bookingId: value['booking_id']);
+      bcodeCreateDatetime: value['bcode_create_datetime'],
+      bcodeName: value['bcode_name'],
+      bcodeValidDatetime: value['bcode_valid_datetime'],
+      bookingId: value['booking_id'],
+    );
   }
 
-  BookingCode.fromJson(Map<String, dynamic> json) {
+  BookingCode.fromJson(dynamic json) {
     bcodeCreateDatetime = json['bcode_create_datetime'];
     bcodeName = json['bcode_name'];
     bcodeValidDatetime = json['bcode_valid_datetime'];
@@ -210,31 +217,32 @@ class BookingCode {
   }
 }
 
-class Notification {
+class Notifications {
   String? residentId;
   String? message;
   String? createDate;
 
-  Notification({this.residentId, this.message, this.createDate});
+  Notifications({this.residentId, this.message, this.createDate});
 
-  static Notification fromMap(Map value) {
-    return Notification(
-        residentId: value['resident_id'],
-        message: value['message'],
-        createDate: value['createDate']);
+  static Notifications fromMap(Map value) {
+    return Notifications(
+      residentId: value['resident_id'],
+      message: value['message'],
+      createDate: value['create_date'],
+    );
   }
 
-  Notification.fromJson(Map<String, dynamic> json) {
+  Notifications.fromJson(dynamic json) {
     residentId = json['resident_id'];
     message = json['message'];
-    createDate = json['createDate'];
+    createDate = json['create_date'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['resident_id'] = residentId;
     data['message'] = message;
-    data['createDate'] = createDate;
+    data['create_date'] = createDate;
     return data;
   }
 }
